@@ -7,59 +7,59 @@ use Illuminate\Http\Request;
 
 class CategorieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $categories = Categorie::all();
+        return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'libelle' => 'required|string|max:255',
+        ]);
+
+        Categorie::create([
+            'libelle' => $request->libelle,
+        ]);
+
+        return redirect()->route('categories.index')->with('success', 'Catégorie créée avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Categorie $categorie)
+    // public function show(Categorie $categorie)
+    // {
+    //     return view('categories.show', compact('categorie'));
+    // }
+
+    public function edit($category)
     {
-        //
+        // Récupérer l'categorie par son identifiant
+        $categorie = Categorie::find($category);
+        return view('categories.edit', compact('categorie'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Categorie $categorie)
+    public function update(Request $request, Categorie $category)
+    
     {
-        //
+        $request->validate([
+            'libelle' => 'required|string|max:255',
+        ]);
+
+        $category->update([
+            'libelle' => $request->libelle,
+        ]);
+
+        return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Categorie $categorie)
+    public function destroy(Categorie $category)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Categorie $categorie)
-    {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'Catégorie supprimée avec succès.');
     }
 }
