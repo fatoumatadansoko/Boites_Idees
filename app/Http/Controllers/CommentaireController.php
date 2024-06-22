@@ -3,63 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commentaire;
+use App\Models\Idee;
 use Illuminate\Http\Request;
 
 class CommentaireController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(Idee $idee)
     {
-        //
+        return view('commentaires.create', compact('idee'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $request->validate([
+        'libelle' => 'required|string',
+        'nom_complet_auteur' => 'required|string|max:255',
+        'idee_id' => 'required|exists:idees,id', // Vérifie que l'idée associée existe dans la table 'idees'
+    ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Commentaire $commentaire)
-    {
-        //
-    }
+    Commentaire::create([
+        'libelle' => $request->libelle,
+        'nom_complet_auteur' => $request->nom_complet_auteur,
+        'idee_id' => $request->idee_id,
+    ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    return redirect()->route('idees.show', $request->idee_id)->with('success', 'Commentaire ajouté avec succès.');
+}
+
+
     public function edit(Commentaire $commentaire)
     {
-        //
+        return view('commentaires.edit', compact('commentaire'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Commentaire $commentaire)
     {
-        //
-    }
+        $request->validate([
+            'contenu' => 'required|string',
+            'nom_complet_auteur' => 'required|string|max:255',
+        ]);
+    
+        $commentaire->update([
+            'contenu' => $request->contenu,
+            'nom_complet_auteur' => $request->nom_complet_auteur,
+        ]);
+    
+        return redirect()->route('idees.show', $commentaire->idee)->with('success', 'Commentaire mis à jour avec succès.');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Commentaire $commentaire)
     {
-        //
+        $idee = $commentaire->idee;
+        $commentaire->delete();
+
+        return redirect()->route('idees.show', $idee)->with('success', 'Commentaire supprimé avec succès.');
     }
 }

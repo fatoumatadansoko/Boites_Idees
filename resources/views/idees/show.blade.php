@@ -16,5 +16,28 @@
         </div>
 
         <a href="{{ route('idees.index') }}" class="btn btn-primary">Retour à la liste des idées</a>
+          <!-- Bouton pour ajouter un commentaire -->
+    <a href="{{ route('commentaires.create', $idee) }}" class="btn btn-primary">Commenter</a>
     </div>
 @endsection
+@if ($idee->commentaires->count() > 0)
+    <h4>Commentaires :</h4>
+    <ul>
+        @foreach ($idee->commentaires as $commentaire)
+            <li>{{ $commentaire->libelle }}</li>
+            <li>{{ $commentaire->nom_complet_auteur }}</li>
+            <li>{{ $commentaire->idee_id }}</li>
+
+            <p>
+                <a href="{{ route('commentaires.edit', $commentaire) }}">Modifier</a>
+                <form action="{{ route('commentaires.destroy', $commentaire) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-link">Supprimer</button>
+                </form>
+            </p>
+        @endforeach
+    </ul>
+@else
+    <p>Aucun commentaire pour cette idée.</p>
+@endif
