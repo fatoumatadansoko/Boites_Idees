@@ -16,3 +16,4 @@ class Categorie extends Model
         return $this->hasMany(Idee::class);
     }
 }
+

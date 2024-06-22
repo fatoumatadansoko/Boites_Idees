@@ -31,32 +31,35 @@ class CategorieController extends Controller
         return redirect()->route('categories.index')->with('success', 'Catégorie créée avec succès.');
     }
 
-    public function show(Categorie $categorie)
-    {
-        return view('categories.show', compact('categorie'));
-    }
+    // public function show(Categorie $categorie)
+    // {
+    //     return view('categories.show', compact('categorie'));
+    // }
 
-    public function edit(Categorie $categorie)
+    public function edit($category)
     {
+        // Récupérer l'categorie par son identifiant
+        $categorie = Categorie::find($category);
         return view('categories.edit', compact('categorie'));
     }
 
-    public function update(Request $request, Categorie $categorie)
+    public function update(Request $request, Categorie $category)
+    
     {
         $request->validate([
             'libelle' => 'required|string|max:255',
         ]);
 
-        $categorie->update([
+        $category->update([
             'libelle' => $request->libelle,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès.');
     }
 
-    public function destroy(Categorie $categorie)
+    public function destroy(Categorie $category)
     {
-        $categorie->delete();
+        $category->delete();
         return redirect()->route('categories.index')->with('success', 'Catégorie supprimée avec succès.');
     }
 }
