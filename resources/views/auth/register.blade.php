@@ -6,34 +6,6 @@
     <title>Register</title>
     <!-- Chargement de Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        .container {
-            max-width: 600px;
-        }
-        .form-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Hauteur de la vue pour centrer verticalement */
-        }
-        .form-box {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .gauche {
-            height: 100vh; /* Hauteur de la vue pour correspondre au conteneur */
-            width: 100%;
-            object-fit: cover;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        /* Définition de la couleur personnalisée pour le bouton */
-        .custom-btn {
-            background-color: #188774 !important;
-        }
-    </style>
 </head>
 <body>
     <div class="row g-0 bg-body-secondary">
