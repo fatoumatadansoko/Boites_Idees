@@ -4,6 +4,12 @@
 
 @section('content')
     <h1>Créer une nouvelle catégorie</h1>
+      <!-- Affichage des messages de statut -->
+      @if (session('status'))
+      <div class="alert alert-success">
+          {{ session('status') }}
+      </div>
+  @endif
     
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf

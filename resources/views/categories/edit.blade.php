@@ -3,6 +3,12 @@
 @section('content')
     <div class="container">
         <h1>Modifier la catégorie {{ $categorie->id }}</h1>
+          <!-- Affichage des messages de statut -->
+          @if (session('status'))
+          <div class="alert alert-success">
+              {{ session('status') }}
+          </div>
+      @endif
         
         <form action="{{ route('categories.update', $categorie->id) }}" method="POST">
             @csrf

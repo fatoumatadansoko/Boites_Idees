@@ -1,0 +1,32 @@
+body {
+    padding-top: 70px; /* Ajuste cette valeur pour compenser la hauteur de la navbar fixe */
+}
+
+footer.footer {
+    background-color: #f69292;
+}
+
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.comment .comment-author {
+    font-weight: bold;
+}
+
+.comment .comment-date {
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+.comment .comment-body {
+    margin-top: 10px;
+}

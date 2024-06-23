@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Idee;
 use App\Models\Categorie;
 use App\Http\Requests\StoreUpdateIdeeRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\IdeeStatusNotification;
 
 class IdeeController extends Controller
 {
@@ -71,4 +73,31 @@ class IdeeController extends Controller
         $idee->delete();
         return redirect()->route('idees.index')->with('success', 'Idée supprimée avec succès.');
     }
+
+    /**
+     * Approve the specified resource.
+     */
+    public function approve($id)
+    {
+        $idee = Idee::findOrFail($id);
+        $idee->status = 'acceptée';
+        $idee->save();
+
+        // Envoyer l'email de notification
+        Mail::to($idee->auteur_email)->send(new IdeeStatusNotification($idee, $idee->status));
+
+        return redirect()->route('idees.index')->with('success', 'Idée approuvée et email envoyé.');
+    }
+
+    public function reject($id)
+    {
+        $idee = Idee::findOrFail($id);
+        $idee->status = 'refusée';
+        $idee->save();
+
+        // Envoyer l'email de notification
+        Mail::to($idee->auteur_email)->send(new IdeeStatusNotification($idee, $idee->status));
+
+        return redirect()->route('idees.index')->with('success', 'Idée refusée et email envoyé.');
+    }    
 }
