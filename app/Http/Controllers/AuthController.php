@@ -22,7 +22,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->intended(route('idees.index'));
         }
-        return to_route('auth.login')->withErrors([
+        return to_route('login')->withErrors([
             'email' => "Email ou mot de passe invalide"
         ])->OnlyInput('email');
     }
@@ -31,7 +31,7 @@ class AuthController extends Controller
     //Méthode d'affichage du formulaire
     public function showRegistrationForm()
     {
-        return view('auth.register');
+        return view('register');
     }
 
 

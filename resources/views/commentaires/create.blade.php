@@ -3,7 +3,12 @@
 @section('content')
     <div class="container">
         <h1>Ajouter un commentaire</h1>
-
+  <!-- Affichage des messages de statut -->
+  @if (session('status'))
+  <div class="alert alert-success">
+      {{ session('status') }}
+  </div>
+@endif
         <form action="{{ route('commentaires.store', $idee) }}" method="POST">
             @csrf
 

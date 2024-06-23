@@ -1,5 +1,3 @@
-<!-- resources/views/layouts/app.blade.php -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,8 +13,8 @@
 <body>
     <header>
         <!-- Barre de navigation Bootstrap -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container justify-content-center">
                 <a class="navbar-brand" href="/">Accueil</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,21 +24,36 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('categories.index') }}">Catégories</a>
                         </li>
-                        <!-- Ajoutez d'autres liens de navigation ici -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('idees.index') }}">Idées</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto"> <!-- Alignement à droite -->
+                        @auth <!-- Vérifie si l'utilisateur est authentifié -->
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="delete">
+                                    @csrf
+                                    <button type="submit" class="btn btn-link nav-link">Déconnexion</button>
+                                </form>
+                                
+                                
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main class="py-4">
+    <main class="py-5 mt-5">
         <div class="container">
             @yield('content')
+            @yield('comments')
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container">
+    <footer class="footer mt-auto py-3 bg-light fixed-bottom" style="background-color: #f59696;">
+        <div class="container text-center">
             <span class="text-muted">© {{ date('Y') }} Mon Application. Tous droits réservés.</span>
         </div>
     </footer>
